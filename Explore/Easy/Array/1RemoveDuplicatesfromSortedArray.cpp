@@ -1,21 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
-}
-
 class Solution
 {
 public:
-    vector<int> removeDuplicates(vector<int> &nums)
+    int removeDuplicates(vector<int> &nums)
     {
-        set<int> numsSet(nums.begin(), nums.end());
-
-        // setをvectorに変換
-        vector<int> k(numsSet.begin(), numsSet.end());
-
-        // 重複削除後の配列を返す
-        return k;
+        if (nums.empty())
+            return 0;
+        int i = 0;
+        for (int j = 1; j < nums.size(); j++)
+        {
+            if (nums[j] != nums[i])
+            {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
     }
 };
