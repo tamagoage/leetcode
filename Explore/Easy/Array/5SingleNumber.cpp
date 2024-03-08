@@ -9,7 +9,7 @@ public:
         map<int, int> numMap;
         for (int num : nums)
         {
-            numMap.at(num)++;
+            numMap[num]++;
         }
 
         int singleNum;
