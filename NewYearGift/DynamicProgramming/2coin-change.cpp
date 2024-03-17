@@ -7,6 +7,8 @@ public:
     int coinChange(vector<int> &coins, int amount)
     {
         vector<vector<int>> dp(amount + 1, vector<int>(coins.size() + 1));
+        unordered_map<int, int> coinMap;
+        coinMap[0] = 0;
 
         for (int i = 0; i <= amount; i++)
         {
@@ -18,28 +20,13 @@ public:
                     continue;
                 }
 
-                if (i >= coins.at(j - 1))
+                if (count(coins.begin(), coins.end(), i - coins.at(j - 1)))
                 {
-                    // +1で枚数増やすの忘れてた
-                    int a = dp[i - coins.at(j - 1)][j] + 1;
-                    int b = dp[i][j - 1];
-
-                    if (a == 0)
-                    {
-                        dp[i][j] = b;
-                    }
-                    else if (b == 0)
-                    {
-                        dp[i][j] = a;
-                    }
-                    else
-                    {
-                        dp[i][j] = min(a, b);
-                    }
+                    dp[i][j] = coinMap[i - coins.at(j - 1)] + 1;
                 }
                 else
                 {
-                    dp[i][j] = dp[i][j - 1];
+                    dp[i][j] = -1;
                 }
             }
         }
