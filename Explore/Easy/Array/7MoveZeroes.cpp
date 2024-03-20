@@ -6,32 +6,20 @@ class Solution
 public:
     void moveZeroes(vector<int> &nums)
     {
-        map<int, int> numsMap;
+        int snowBallSize = 0;
 
         for (int i = 0; i < nums.size(); i++)
         {
-            numsMap[i] = nums.at(i);
-        }
-
-        for (auto it = numsMap.begin(); it != numsMap.end();)
-        {
-            if (it->second == 0)
+            if (nums.at(i) == 0)
             {
-                it = numsMap.erase(it);
+                snowBallSize++;
             }
-            else
+            else if (snowBallSize > 0)
             {
-                it++;
+                int tmp = nums.at(i);
+                nums.at(i) = 0;
+                nums.at(i - snowBallSize) = tmp;
             }
-        }
-
-        fill(nums.begin(), nums.end(), 0);
-
-        int i = 0;
-        for (const auto &pair : numsMap)
-        {
-            nums.at(i) = pair.second;
-            i++;
         }
     }
 };
